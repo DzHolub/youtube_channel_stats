@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    //HomeWidget.widgetClicked.listen((Uri? uri) => ScreenWidget.loadData());
+    HomeWidget.widgetClicked.listen((Uri? uri) => _getWidgetData());
     _getWidgetData();
   }
 
