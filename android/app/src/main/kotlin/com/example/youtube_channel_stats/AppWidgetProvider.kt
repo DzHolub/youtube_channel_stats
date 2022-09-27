@@ -26,24 +26,23 @@ class AppWidgetProvider : HomeWidgetProvider() {
                 )
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
 
+                var channelTitle = widgetData.getString("channelCustomUrl", "")
                 var channelViewCount = widgetData.getString("channelViewCount", "")
                 var subscriberCount = widgetData.getString("subscriberCount", "")
-                var updateTime = widgetData.getString("updateTime", "")
+                
+                var channelTitleText = "@$channelTitle"
+                var channelViewCountText = "$channelViewCount views"
+                var subscriberCountText = "$subscriberCount subs"
+                
+                setTextViewText(R.id.title_text, channelTitleText)
+                setTextViewText(R.id.total_text, channelViewCountText)
+                setTextViewText(R.id.subscriber_text, subscriberCountText)
 
-                var counterText = "Total views: $channelViewCount \nSubscribers: $subscriberCount\nLast update: $updateTime"
-
-                if (channelViewCount == "") {
-                    counterText = "You have no data yet"
-                }
-
-                setTextViewText(R.id.tv_counter, counterText)
-
-                // Pending intent to update counter on button click
-                // val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(
-                //     context,
-                //     Uri.parse("myAppWidget://updatecounter")
-                // )
-                // setOnClickPendingIntent(R.id.bt_update, backgroundIntent)
+                val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(
+                    context,
+                    Uri.parse("myAppWidget://refresh")
+                )
+                setOnClickPendingIntent(R.id.bt_update, backgroundIntent)
             }
             appWidgetManager.updateAppWidget(widgetId, views)
         }

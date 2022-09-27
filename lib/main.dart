@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-//import 'package:home_widget/home_widget.dart';
 import 'yt_parser.dart';
 import 'screen_widget.dart';
+import 'package:home_widget/home_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-//  HomeWidget.registerBackgroundCallback(bgCallback);
+  HomeWidget.registerBackgroundCallback(bgCallback);
 
   runApp(const MyApp());
 }
 
-// Future<void> bgCallback(Uri? uri) async {
-//   if (uri?.host == 'updatecounter') {
-//     int _counter = 0;
-//     await HomeWidget.getWidgetData<int>('_counter', defaultValue: 0)
-//         .then((value) {
-//       _counter = value!;
-//       _counter++;
-//     });
-//     await HomeWidget.saveWidgetData('_counter', _counter);
-//     await HomeWidget.updateWidget(
-//         name: 'AppWidgetProvider', iOSName: 'AppWidgetProvider');
-//   }
-// }
+Future<void> bgCallback(Uri? uri) async {
+  if (uri?.host == 'refresh') {
+    ScreenWidget.updateAppWidget();
+    print('updated through the widget');
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -60,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _refreshData() async {
     gatheredInfo = await ScreenWidget.updateAppWidget();
-    print('Prvious data: ${ScreenWidget.previouslySavedInfo?.updateTime}');
+    print('Previous data: ${ScreenWidget.previouslySavedInfo?.updateTime}');
     setState(() {});
   }
 

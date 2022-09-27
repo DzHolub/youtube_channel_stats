@@ -30,6 +30,8 @@ class ScreenWidget {
     await HomeWidget.saveWidgetData<String>(
         'subscriberCount', gatheredInfo?.subscriberCount);
     await HomeWidget.saveWidgetData<String>(
-        'updateTime', gatheredInfo?.updateTime);
+        'channelTitle', gatheredInfo?.channelTitle);
+    await HomeWidget.saveWidgetData<String>(
+        'channelCustomUrl', gatheredInfo?.channelCustomUrl);
   }
 }

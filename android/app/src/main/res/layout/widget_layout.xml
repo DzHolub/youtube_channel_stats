@@ -1,31 +1,54 @@
 <FrameLayout android:id="@+id/widget_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="349dp"
-    android:layout_height="220dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1f303d">
+        android:foregroundGravity="center"
+        android:background="@layout/relative_layout_custom">
 
         <TextView
-            android:id="@+id/tv_counter"
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:text="--"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
+        <TextView
+            android:id="@+id/total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_text"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/subscriber_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/total_text"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
-        <!-- <Button
+        <Button
             android:id="@+id/bt_update"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="R"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="12sp" /> -->
+            android:layout_below="@id/title_text"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:text="↻"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
     </RelativeLayout>
 </FrameLayout>
