@@ -92,6 +92,7 @@ class FinalData {
     this.bestVideoTitle,
     this.bestVideoThumbnail,
     this.bestVideoViewCount,
+    this.bestVideoLikeCount,
     this.updateTime,
   });
 
@@ -107,6 +108,7 @@ class FinalData {
   String? bestVideoTitle;
   String? bestVideoThumbnail;
   String? bestVideoViewCount;
+  String? bestVideoLikeCount;
   String? updateTime;
 
   static Future<FinalData> getData() async {
@@ -138,6 +140,7 @@ class FinalData {
       bestVideoTitle: getBestVideoInfo.videoTitle,
       bestVideoThumbnail: getBestVideoInfo.videoThumbnail,
       bestVideoViewCount: getBestVideoInfo.viewCount,
+      bestVideoLikeCount: getBestVideoInfo.likeCount,
       updateTime: _convertedTime,
     );
   }
@@ -146,7 +149,6 @@ class FinalData {
     dynamic deviceData = await HomeWidget.getWidgetData<String>('ytData',
         defaultValue: jsonEncode(FinalData()));
     deviceData = jsonDecode(deviceData);
-    print(deviceData);
 
     return FinalData(
       channelTitle: deviceData['channelTitle'],
@@ -161,6 +163,7 @@ class FinalData {
       bestVideoTitle: deviceData['bestVideoTitle'],
       bestVideoThumbnail: deviceData['bestVideoThumbnail'],
       bestVideoViewCount: deviceData['bestVideoViewCount'],
+      bestVideoLikeCount: deviceData['bestVideoLikeCount'],
       updateTime: deviceData['updateTime'],
     );
   }
@@ -178,6 +181,7 @@ class FinalData {
         'bestVideoTitle': bestVideoTitle,
         'bestVideoThumbnail': bestVideoThumbnail,
         'bestVideoViewCount': bestVideoViewCount,
+        'bestVideoLikeCount': bestVideoLikeCount,
         'updateTime': updateTime,
       };
 }

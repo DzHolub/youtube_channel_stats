@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'yt_parser.dart';
-import 'screen_widget.dart';
+import 'home_screen_widget.dart';
 import 'package:home_widget/home_widget.dart';
+import '/screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,10 +12,7 @@ void main() async {
 }
 
 Future<void> bgCallback(Uri? uri) async {
-  if (uri?.host == 'refresh') {
-    ScreenWidget.updateAppWidget();
-    print('updated through the widget');
-  }
+  if (uri?.host == 'refresh') ScreenWidget.updateAppWidget();
 }
 
 class MyApp extends StatelessWidget {
@@ -62,37 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text('YOUTUBE STATS')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const Text(
-              'CHANNEL STATISTICS',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text('NAME: ${gatheredInfo.channelTitle}'),
-            Text('${gatheredInfo.channelCustomUrl}'),
-            Text('Channel views: ${gatheredInfo.channelViewCount}'),
-            Text('Subs: ${gatheredInfo.subscriberCount}'),
-            Text('Total videos: ${gatheredInfo.videoCount}'),
-            Text('Latest video name: ${gatheredInfo.latestVideoTitle}'),
-            Image.network(
-              '${gatheredInfo.latestVideoThumbnail}',
-              scale: 1,
-              height: 100,
-            ),
-            Text('Views: ${gatheredInfo.latestVideoViewCount}'),
-            Text('Likes: ${gatheredInfo.latestVideoLikeCount}'),
-            Text('Most viewed video: ${gatheredInfo.bestVideoTitle}'),
-            Text('Views: ${gatheredInfo.bestVideoViewCount}'),
-            Image.network(
-              '${gatheredInfo.bestVideoThumbnail}',
-              scale: 1,
-              height: 100,
-            ),
-            Text('Last time updated: ${gatheredInfo.updateTime}'),
-          ],
-        ),
+        child: MainScreen(gatheredInfo: gatheredInfo),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _refreshData,
