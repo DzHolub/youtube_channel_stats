@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'yt_parser.dart';
 import 'home_screen_widget.dart';
 import 'package:home_widget/home_widget.dart';
 import '/screens/main_screen.dart';
+import 'theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   HomeWidget.registerBackgroundCallback(bgCallback);
 
   runApp(const MyApp());
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.red),
+      theme: appCustomTheme,
       home: const MyHomePage(),
     );
   }
@@ -62,9 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: MainScreen(gatheredInfo: gatheredInfo),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _refreshData,
-        child: const Icon(Icons.replay_rounded),
+      floatingActionButton: SizedBox(
+        width: 150,
+        height: 50,
+        child: FloatingActionButton(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          onPressed: _refreshData,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text('${gatheredInfo.updateTime}'),
+            const Icon(Icons.replay_rounded)
+          ]),
+        ),
       ),
     );
   }

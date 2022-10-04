@@ -22,7 +22,7 @@ class YoutubeData {
       this.videoTitle,
       this.likeCount,
       this.videoId,
-      this.videoThumbnail});
+      this.thumbnail});
 
   String? channelTitle;
   String? channelCustomUrl;
@@ -32,7 +32,7 @@ class YoutubeData {
   String? videoTitle;
   String? likeCount;
   String? videoId;
-  String? videoThumbnail;
+  String? thumbnail;
 
   factory YoutubeData.fromJson(Map<String, dynamic> json) => YoutubeData(
         channelTitle: json["items"][0]["kind"] == "youtube#searchResult"
@@ -59,9 +59,9 @@ class YoutubeData {
         videoId: json["items"][0]["kind"] == "youtube#searchResult"
             ? json["items"][0]["id"]["videoId"]
             : 'null',
-        videoThumbnail: json["items"][0]["kind"] == "youtube#video"
-            ? json["items"][0]["snippet"]["thumbnails"]["high"]["url"]
-            : 'null',
+        thumbnail: json["items"][0]["kind"] == "youtube#searchResult"
+            ? 'null'
+            : json["items"][0]["snippet"]["thumbnails"]["high"]["url"],
       );
 
   static YoutubeData channelFromJson(String str) =>
@@ -81,6 +81,7 @@ class YoutubeData {
 class FinalData {
   FinalData({
     this.channelTitle,
+    this.channelThumbnail,
     this.channelCustomUrl,
     this.channelViewCount,
     this.subscriberCount,
@@ -97,6 +98,7 @@ class FinalData {
   });
 
   String? channelTitle;
+  String? channelThumbnail;
   String? channelCustomUrl;
   String? channelViewCount;
   String? subscriberCount;
@@ -125,20 +127,21 @@ class FinalData {
 
     DateTime _getTime = DateTime.now().toLocal();
     String _convertedTime =
-        "${_getTime.hour.toString().padLeft(2, '0')}:${_getTime.minute.toString().padLeft(2, '0')}:${_getTime.second.toString().padLeft(2, '0')} ${_getTime.day.toString().padLeft(2, '0')}.${_getTime.month.toString().padLeft(2, '0')}.${_getTime.year.toString()}";
+        "${_getTime.hour.toString().padLeft(2, '0')}:${_getTime.minute.toString().padLeft(2, '0')} ${_getTime.day.toString().padLeft(2, '0')}.${_getTime.month.toString().padLeft(2, '0')} ";
 
     return FinalData(
       channelTitle: getChannelInfo.channelTitle,
+      channelThumbnail: getChannelInfo.thumbnail,
       channelCustomUrl: getChannelInfo.channelCustomUrl,
       channelViewCount: getChannelInfo.viewCount,
       subscriberCount: getChannelInfo.subscriberCount,
       videoCount: getChannelInfo.videoCount,
       latestVideoTitle: getLatestVideoInfo.videoTitle,
-      latestVideoThumbnail: getLatestVideoInfo.videoThumbnail,
+      latestVideoThumbnail: getLatestVideoInfo.thumbnail,
       latestVideoViewCount: getLatestVideoInfo.viewCount,
       latestVideoLikeCount: getLatestVideoInfo.likeCount,
       bestVideoTitle: getBestVideoInfo.videoTitle,
-      bestVideoThumbnail: getBestVideoInfo.videoThumbnail,
+      bestVideoThumbnail: getBestVideoInfo.thumbnail,
       bestVideoViewCount: getBestVideoInfo.viewCount,
       bestVideoLikeCount: getBestVideoInfo.likeCount,
       updateTime: _convertedTime,
@@ -149,9 +152,11 @@ class FinalData {
     dynamic deviceData = await HomeWidget.getWidgetData<String>('ytData',
         defaultValue: jsonEncode(FinalData()));
     deviceData = jsonDecode(deviceData);
+    print(deviceData);
 
     return FinalData(
       channelTitle: deviceData['channelTitle'],
+      channelThumbnail: deviceData['channelThumbnail'],
       channelCustomUrl: deviceData['channelCustomUrl'],
       channelViewCount: deviceData['channelViewCount'],
       subscriberCount: deviceData['subscriberCount'],
@@ -170,6 +175,7 @@ class FinalData {
 
   Map<String, dynamic> toJson() => {
         'channelTitle': channelTitle,
+        'channelThumbnail': channelThumbnail,
         'channelCustomUrl': channelCustomUrl,
         'channelViewCount': channelViewCount,
         'subscriberCount': subscriberCount,

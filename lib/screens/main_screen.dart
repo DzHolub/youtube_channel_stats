@@ -12,179 +12,130 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Text(
-          'CHANNEL STATISTICS',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage:
+                      NetworkImage('${gatheredInfo.channelThumbnail}'),
+                ),
+              ],
+            ),
+            const SizedBox(width: 5),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${gatheredInfo.channelTitle}',
+                    style: const TextStyle(fontSize: 30)),
+                Text('${gatheredInfo.channelCustomUrl}'),
+                Text('Views: ${gatheredInfo.channelViewCount}'),
+                Text('Subs: ${gatheredInfo.subscriberCount}'),
+                Text('Videos: ${gatheredInfo.videoCount}'),
+              ],
+            )
+          ],
         ),
-        Text('NAME: ${gatheredInfo.channelTitle}'),
-        Text('${gatheredInfo.channelCustomUrl}'),
-        Text('Channel views: ${gatheredInfo.channelViewCount}'),
-        Text('Subs: ${gatheredInfo.subscriberCount}'),
-        Text('Total videos: ${gatheredInfo.videoCount}'),
-        const Text(
-          'LATEST VIDEO',
-          style: TextStyle(fontSize: 20),
-        ),
+        const SizedBox(height: 10),
         Flexible(
-          flex: 3,
-          child: Stack(
-            children: [
-              Image.network(
-                '${gatheredInfo.latestVideoThumbnail}',
-                scale: 1,
-              ),
-              Text(
-                '${gatheredInfo.latestVideoTitle}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  shadows: [
-                    BoxShadow(
-                        color: Colors.black,
-                        spreadRadius: 20.0,
-                        blurRadius: 10.0)
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.white,
-                      size: 30,
-                      shadows: [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 20.0,
-                            blurRadius: 10.0)
-                      ],
-                    ),
-                    Text(' ${gatheredInfo.latestVideoViewCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          shadows: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 20.0,
-                                blurRadius: 10.0)
-                          ],
-                        )),
-                    const SizedBox(width: 10),
-                    const Icon(
-                      Icons.thumb_up,
-                      color: Colors.white,
-                      size: 30,
-                      shadows: [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 20.0,
-                            blurRadius: 10.0)
-                      ],
-                    ),
-                    Text(' ${gatheredInfo.latestVideoLikeCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          shadows: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 20.0,
-                                blurRadius: 10.0)
-                          ],
-                        )),
-                  ],
-                ),
-              )
-            ],
+          flex: 9,
+          child: VideoInformationCard(
+            videoType: "LATEST VIDEO",
+            videoLikeCount: gatheredInfo.latestVideoLikeCount,
+            videoThumbnail: gatheredInfo.latestVideoThumbnail,
+            videoTitle: gatheredInfo.latestVideoTitle,
+            videoViewCount: gatheredInfo.latestVideoViewCount,
           ),
         ),
-        const Text(
-          'MOST VIEWED',
-          style: TextStyle(fontSize: 20),
-        ),
+        const SizedBox(height: 10),
         Flexible(
-          flex: 3,
-          child: Stack(
-            children: [
-              Image.network(
-                '${gatheredInfo.bestVideoThumbnail}',
-                scale: 1,
-              ),
-              Text(
-                '${gatheredInfo.bestVideoTitle}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  shadows: [
-                    BoxShadow(
-                        color: Colors.black,
-                        spreadRadius: 20.0,
-                        blurRadius: 10.0)
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.white,
-                      size: 30,
-                      shadows: [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 20.0,
-                            blurRadius: 10.0)
-                      ],
-                    ),
-                    Text(' ${gatheredInfo.bestVideoViewCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          shadows: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 20.0,
-                                blurRadius: 10.0)
-                          ],
-                        )),
-                    const SizedBox(width: 10),
-                    const Icon(
-                      Icons.thumb_up,
-                      color: Colors.white,
-                      size: 30,
-                      shadows: [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 20.0,
-                            blurRadius: 10.0)
-                      ],
-                    ),
-                    Text(' ${gatheredInfo.bestVideoLikeCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          shadows: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 20.0,
-                                blurRadius: 10.0)
-                          ],
-                        )),
-                  ],
-                ),
-              )
-            ],
+          flex: 9,
+          child: VideoInformationCard(
+            videoType: "MOST VIEWED",
+            videoLikeCount: gatheredInfo.bestVideoLikeCount,
+            videoThumbnail: gatheredInfo.bestVideoThumbnail,
+            videoTitle: gatheredInfo.bestVideoTitle,
+            videoViewCount: gatheredInfo.bestVideoViewCount,
           ),
         ),
+        const Spacer(flex: 3),
       ],
+    );
+  }
+}
+
+class VideoInformationCard extends StatelessWidget {
+  final String? videoType;
+  final String? videoThumbnail;
+  final String? videoTitle;
+  final String? videoViewCount;
+  final String? videoLikeCount;
+
+  const VideoInformationCard(
+      {Key? key,
+      required this.videoType,
+      required this.videoThumbnail,
+      required this.videoTitle,
+      required this.videoViewCount,
+      required this.videoLikeCount})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          color: Colors.black87,
+        ),
+        Center(
+          child: Image.network(
+            videoThumbnail!,
+          ),
+        ),
+        CardText("$videoType: $videoTitle", 18.0),
+        Positioned(
+          bottom: 0,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.remove_red_eye,
+                shadows: [BoxShadow(spreadRadius: 20.0, blurRadius: 10.0)],
+              ),
+              CardText(videoViewCount!, 18.0),
+              const SizedBox(width: 10),
+              const Icon(
+                Icons.thumb_up,
+                shadows: [BoxShadow(spreadRadius: 20.0, blurRadius: 10.0)],
+              ),
+              CardText(videoLikeCount!, 18.0),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class CardText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+
+  const CardText(this.text, this.fontSize, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: fontSize,
+        shadows: const [BoxShadow(spreadRadius: 20.0, blurRadius: 10.0)],
+      ),
     );
   }
 }

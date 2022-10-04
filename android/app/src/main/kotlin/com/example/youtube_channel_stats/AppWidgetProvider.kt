@@ -30,7 +30,7 @@ class AppWidgetProvider : HomeWidgetProvider() {
                 var channelViewCount = widgetData.getString("channelViewCount", "")
                 var subscriberCount = widgetData.getString("subscriberCount", "")
                 
-                var channelTitleText = "@$channelTitle"
+                var channelTitleText = "$channelTitle"
                 var channelViewCountText = "$channelViewCount views"
                 var subscriberCountText = "$subscriberCount subs"
                 
